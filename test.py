@@ -1,13 +1,13 @@
-
 from PyProbs import Probability as pr
+
 import matplotlib.pyplot as plt
 
 
 def hextriplet(colortuple):
     return '#' + ''.join(f'{i:02X}' for i in colortuple)
 
-WC = (40, 71)
 
+WC = (40, 71)
 
 
 x_axel = [i for i in range(10)]
