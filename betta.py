@@ -41,7 +41,7 @@ def hextriplet(colortuple):
 
 # Plotta simuleringar med varierande win_chance
 def final_simulation(win_chance, balance, bet_andel, games, simuleringar):
-    for i, w in enumerate(range(*win_chance, 10)):
+    for i, w in enumerate(range(*win_chance, 5)):
         color = (10, 0, 0)
         print(i, w)
         color = (int(30*(i+1)), int(255-(50*i)), 0)
@@ -55,7 +55,7 @@ def final_simulation(win_chance, balance, bet_andel, games, simuleringar):
 
 
 # Rörliga parametrar
-win_chance = (30, 81)
+win_chance = (50, 71)
 bet_andel = (0, 101)
 
 # Fixerade parametrar
