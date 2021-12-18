@@ -1,31 +1,33 @@
-from PyProbs import Probability as pr
-
-import matplotlib.pyplot as plt
-
-
-def hextriplet(colortuple):
-    return '#' + ''.join(f'{i:02X}' for i in colortuple)
+import tkinter as tk
+from tkinter import filedialog, Text
+import os
 
 
-WC = (40, 71)
+# the app "body"
+root = tk.Tk()
 
 
-x_axel = [i for i in range(10)]
-y_axel = [i for i in range(10)]
-
-for i, w in enumerate(range(*WC, 10)):
-    color = (40, 0, 0)
-    print(i, w)
-    color = (int(40*(i+1)), 0, 0)
-    HEX_color = hextriplet(color)
-    plt.plot(x_axel, y_axel, HEX_color)
-    plt.axis([x_axel[0], x_axel[-1], y_axel[0], y_axel[-1]])
-    print(HEX_color), print(color)
+def addApp():
+    filename = filedialog.askopenfilename(initaldir="/", title="Select File",
+                                            filetypes=(("executables", "*.exe"),
+                                            ("all files", "*.*")))
 
 
+#Create canvas
+canvas = tk.Canvas(root, height=900, width=900, bg="#263D42")
+canvas.pack
+
+# attach things to root
+frame = tk.Frame(root, bg="black")
+frame.place(relwidth=0.8, relheight=0.8, relx=0.1, rely=0.1)
+
+chooseApps = tk.Button(root, text="Add App", padx=10, pady=5,
+                        bg="#263D42" "command"=addApp)
+chooseApps.pack()
 
 
+runApps = tk.Button(root, text="Add App", padx = 10, pady=5, bg="#263D42")
+runApps.pack()
 
 
-
-plt.show()
+root.mainloop()
