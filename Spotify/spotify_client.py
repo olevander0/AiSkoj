@@ -17,7 +17,7 @@ class SpotifyClient(object):
 
         print(query)
 
-        url = f'https://api.spotify.com/v1/search?q={query}&offset={offset}&type=track' 
+        url = f'https://api.spotify.com/v1/search?q={query}&offset={offset}&type=track'
 
         response = requests.get(
             url,
