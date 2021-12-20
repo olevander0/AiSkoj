@@ -60,7 +60,7 @@ bet_andel = (0, 101)
 
 # Fixerade parametrar
 balance = 1000
-games = 50
+games = 1000
 simuleringar = 500
 
 final_simulation(win_chance, balance, bet_andel, games, simuleringar)
