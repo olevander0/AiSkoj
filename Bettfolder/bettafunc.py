@@ -3,6 +3,7 @@ from PyProbs import Probability as pr
 import multiprocessing
 # import matplotlib.pyplot as plt
 from pprint import pprint
+
 game = collections.namedtuple("game", [
         "balance",
         "bet_andel",
@@ -10,19 +11,16 @@ game = collections.namedtuple("game", [
         "bets"])
 
 
-def create_game_inputs(balance, bet_andel, win_chance, bets, antal):
-    balances = tuple((balance for _ in range(antal)))
-    bet_andelar = tuple((bet_andel for _ in range(antal)))
-    win_chances = tuple((win_chance for _ in range(antal)))
-    betsleft = tuple((bets for _ in range(antal)))
-    return balances, bet_andelar, win_chances, betsleft
+def create_game_inputs(arg, antal):
+    output = (arg for _ in range(antal))
+    return tuple(output)
 
 
-def create_games(balances, bet_andelar, win_chances, betsleft):
-    newgames = (game(balance=balances[i],
-                bet_andel=bet_andelar[i],
-                win_chance=win_chances[i],
-                bets=betsleft[i]) for i in range(len(balances)))
+def create_games(arguments):
+    newgames = (game(balance=arg[0],
+                bet_andel=arg[1],
+                win_chance=arg[2],
+                bets=arg[3]) for arg in arguments)
     return tuple(newgames)
 
 
@@ -60,11 +58,13 @@ def new_balances(games):  # ger en tuple med samtliga updaterade balances
 
 
 def main():
-    balances, bet_andelar, win_chances, betsleft = create_game_inputs(1000, 10,
-                                                                      51, 1000,
-                                                                      10)
+    arguments = create_game_inputs((1000, 10, 51, 1000), 10)
 
-    games = create_games(balances, bet_andelar, win_chances, betsleft)
+    games = create_games(arguments)
+    games2 = (game(balance=1, bet_andel="hej", win_chance=2, bets=3),
+              game(balance=1000, bet_andel="hej", win_chance=2, bets=3))
+
+    print(games2[1].balance)
 
     pprint(games)
     new_games = create_new_balances(games, new_balances(games))
