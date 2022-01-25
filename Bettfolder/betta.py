@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 from PyProbs import Probability as pr
 import multiprocessing
 import matplotlib.pyplot as plt
@@ -52,7 +50,6 @@ def sim_average(win_chance, balance, bet_andel, games, simuleringar):
 def andels_variation(win_chance, balance, bet_andel, games, simuleringar):
     x_axel_andel = [i for i in range(bet_andel[0], bet_andel[1]) if i % 5]
     print(bet_andel[0], bet_andel[1], "betande")
-    #pprint(x_axel_andel)
     A_V = [sim_average(win_chance, balance, i, games,
            simuleringar) for i in range(bet_andel[0], bet_andel[1]) if i % 5]
     highest_balance = max(A_V)
@@ -94,4 +91,3 @@ def main():
 
 if __name__ == '__main__':
     main()
->>>>>>> 629068550cf90459ae5b9edbb594af72077bda8a
