@@ -90,7 +90,7 @@ def main():
 
     # games = copy_game(games_single1, 10000)
 
-    games = copy_games(games_single, 5)
+    games = copy_games(game_single1, 5)
     pprint(games)
     print()
     # games = create_games(games_single, 10)
