@@ -45,6 +45,16 @@ def copy_games(games, antal):
     return tuple(listed_games)
 
 
+def merge_games(all_games):
+    merged_games = (*all_games[0],)
+
+    # pprint(merged_games)
+    if len(all_games) == 1:
+        return merged_games
+    for games in all_games[1:]:
+        merged_games = merged_games + (*games,)
+    return merged_games
+
 """
 def create_game_inputs(arg, antal):
     output = (arg for _ in range(antal))
@@ -91,7 +101,8 @@ def new_balance_double(game):
         else:
             new_balance -= dx
             dx = dx * 2
-
+        if new_balance <= 0:
+            return 0
     return new_balance
 
 
@@ -120,29 +131,37 @@ def new_balances_all(all_games):
 def main():
 
     game_single1 = game(balance=1000,
-                        bet_andel=25,
+                        bet_andel=5,
+                        win_chance=51,
+                        bets=1000,
+                        func_bal=new_balance)
+    game_single2 = game(balance=1000,
+                        bet_andel=5,
                         win_chance=51,
                         bets=10,
                         func_bal=new_balance_double)
-    print(game_single1)
+    # print(game_single1)
+
     # games_single = (game_single1, game_single2)
 
     # games = copy_game(games_single1, 10000)
 
-    games = copy_game(game_single1, 100000)
+    games = copy_game(game_single1, 10)
+    games2 = copy_game(game_single2, 10)
     # pprint(games)
-
+    mergy = merge_games((games, games2))
+    pprint(mergy)
     # games = create_games(games_single, 10)
     # pprint(games)
-    new_games = create_new_balances(games, new_balances(games))
-    new_games2 = create_new_balances(games, new_balances2(games))
+    new_games = create_new_balances(mergy, new_balances(mergy))
+    # new_games2 = create_new_balances(games, new_balances2(games))
     # pprint(new_games)
 
     def round_bal(games):
         return tuple(map(lambda game: round(game.balance), new_games))
 
-    # new_games_rounded = create_new_balances(new_games, round_bal(new_games))
-    # pprint(new_games_rounded)
+    new_games_rounded = create_new_balances(new_games, round_bal(new_games))
+    pprint(new_games_rounded)
 
     # bals = tuple(map((lambda game: game.balance), new_games_rounded))
     #pprint(bal)
