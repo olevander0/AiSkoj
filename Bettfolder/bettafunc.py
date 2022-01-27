@@ -55,6 +55,7 @@ def merge_games(all_games):
         merged_games = merged_games + (*games,)
     return merged_games
 
+
 """
 def create_game_inputs(arg, antal):
     output = (arg for _ in range(antal))
