@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 import collections
 from PyProbs import Probability as pr
 import multiprocessing
@@ -166,7 +164,7 @@ def main():
     pprint(new_games_rounded)
 
     # bals = tuple(map((lambda game: game.balance), new_games_rounded))
-    #pprint(bal)
+    # pprint(bal)
     """
     def filter_help(game):
         return game.bet_andel == 25
@@ -184,6 +182,6 @@ def main():
     print("min =", min(bals))
     """
 
+
 if __name__ == '__main__':
     main()
->>>>>>> f0c4ffa8aa0e839543286dce96cd71cbdb7dec8a
