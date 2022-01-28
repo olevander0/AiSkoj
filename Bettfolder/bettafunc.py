@@ -33,6 +33,7 @@ game_atribut = [
 game = collections.namedtuple("game", game_atribut)
 
 
+
 def copy_game(game, antal):
     return tuple((game for _ in range(antal)))
 
@@ -114,14 +115,11 @@ def main():
                         win_chance=51,
                         bets=1000,
                         func_bal=new_balance)
-    f = game_single1.func_bal
-    print (f)
-    print(f(game_single1))
 
     game_single2 = game(balance=1000,
                         bet_andel=5,
                         win_chance=51,
-                        bets=100,
+                        bets=1000,
                         func_bal=new_balance_double)
     # print(game_single1)
 
@@ -129,15 +127,14 @@ def main():
 
     # games = copy_game(games_single1, 10000)
 
-    games = copy_game(game_single1, 100)
-    games2 = copy_game(game_single2, 100)
+    games = copy_game(game_single1, 1000)
+    games2 = copy_game(game_single2, 1000)
     # pprint(games)
     mergy = merge_games((games, games2))
     # pprint(mergy)
     # games = create_games(games_single, 10)
     # pprint(games)
     new_games = create_new_balances(mergy, new_balances(mergy))
-    new_games2 = create_new_balances(mergy, new_balances2(mergy))
     # pprint(new_games)
 
     def round_bal(games):
