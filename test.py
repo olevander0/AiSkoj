@@ -1,40 +1,10 @@
-"""
-games = ((game(balance=1000, bet_andel=25, win_chance=55, bets=500),
-         (game(balance=1000, bet_andel=25, win_chance=55, bets=500),
-         (game(balance=1000, bet_andel=25, win_chance=55, bets=500),)
+import itertools
+from pprint import pprint
+parameters = ((1000,), (60, 70, 80), (51, 52, 53), (1000,), ("f1", "f2"))
 
-balances = (101, 231, 2141)
-
-def update_bal(args):
-    game, bal = args
-    return game._replace(balance=bal, bets=0)
-
-(game(balance=101, bet_andel=25, win_chance=55, bets=0)
-
-
-args = (game(balance=1000, bet_andel=25, win_chance=55, bets=500), 101)
-
-output = [game(balance=101, bet_andel=25, win_chance=55, bets=0]
-for args in zip(games, balances):
-    args = (101, (game(balance=1000, bet_andel=25, win_chance=55, bets=500))
-    output.append(update_bal(args))
-"""
-lst = ["a", "b", "c"]
-tupp = (1, 2, 3)
-
-
-def mult_3(arg):
-    return arg[0], arg[1]*3
-
-
-merg = []
-
-for arg in zip(lst, tupp):
-    merg.append(mult_3(arg))
-print(merg)
-
-iterator = zip(lst, tupp)
-print(iterator)
-m_o = (map(mult_3, iterator))
-for i in m_o:
-    print(i)
+par =  (("kuk", "BUK"), (60, 70, 80))
+a, b = par
+S = list(itertools.product(*parameters))
+pprint(S)
+print(len(S))
+#print(list(itertools.product(*parameters)))
