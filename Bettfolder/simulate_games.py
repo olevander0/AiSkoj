@@ -9,6 +9,10 @@ import statistics
 from timer_function import timer_func
 
 
+def create_namedtuple(game_args):
+    return collections.namedtuple("game", game_args)
+
+
 game_atribut = (
         "balance",
         "bet_andel",
@@ -17,15 +21,11 @@ game_atribut = (
         "func_bal"
         )
 
-
-game = collections.namedtuple("game", game_atribut)
+game = create_namedtuple(game_atribut)
 
 
 def set_game(game, parameter):
-    p1, p2, p3, p4, p5 = (*parameter, )
-    new_game = game._replace(balance=p1, bet_andel=p2,
-                             win_chance=p3, bets=p4, func_bal=p5)
-    return new_game
+    return game._make(parameter)
 
 
 def game_variants(game, parameters):
@@ -124,6 +124,7 @@ def main():
     para2 = ((1000, ), (10, ),
              (50, 55), (100, ), (new_balance, new_balance_double))
     variants = game_variants(game_empty, parameters)
+
     copied_variants = copy_game_variants(variants, 100)
     mergy = merge_games(copied_variants)
     print(len(mergy))
