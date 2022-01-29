@@ -6,28 +6,16 @@ import itertools
 # import matplotlib.pyplot as plt
 from pprint import pprint
 import statistics
-from time import time
+from timer_function import timer_func
 
 
-def timer_func(func):
-    # This function shows the execution time of
-    # the function object passed
-    def wrap_func(*args, **kwargs):
-        t1 = time()
-        result = func(*args, **kwargs)
-        t2 = time()
-        print(f'Function {func.__name__!r} executed in {(t2-t1):.4f}s')
-        return result
-    return wrap_func
-
-
-game_atribut = [
+game_atribut = (
         "balance",
         "bet_andel",
         "win_chance",
         "bets",
         "func_bal"
-        ]
+        )
 
 
 game = collections.namedtuple("game", game_atribut)
