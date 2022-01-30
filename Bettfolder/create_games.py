@@ -1,33 +1,10 @@
-import collections
+from collections import namedtuple
 import itertools
-# import math as m
-# import matplotlib.pyplot as plt
 from pprint import pprint
-import statistics
-from timer_function import timer_func
-
-
-game_atribut = (
-        "balance",
-        "bet_andel",
-        "win_chance",
-        "bets",
-        "func_bal"
-        )
 
 
 def create_namedtuple(game_args):
-    return collections.namedtuple("game", game_args)
-
-
-game = create_namedtuple(game_atribut)
-
-
-game = game(balance=None,
-            bet_andel=None,
-            win_chance=None,
-            bets=None,
-            func_bal=None)
+    return namedtuple("game", game_args)
 
 
 def set_game(game, parameter):
@@ -43,12 +20,10 @@ def copy_game(game, antal):
     return tuple((game for _ in range(antal)))
 
 
-@timer_func
 def copy_game_variants(variants, antal):
     return tuple(copy_game(variant, antal) for variant in variants)
 
 
-@timer_func
 def merge_games(all_games):
     merged_games = all_games[0]
     if len(all_games) == 1:
@@ -56,3 +31,30 @@ def merge_games(all_games):
     for games in all_games[1:]:
         merged_games += games
     return merged_games
+
+
+def create_all_games(game_atribut, parameters, antal):
+    game = create_namedtuple(game_atribut)
+    copied_games = copy_game_variants(game_variants(game, parameters), antal)
+    return merge_games(copied_games)
+
+
+def main():
+
+    game_atribut = (
+            "balance",
+            "bet_andel",
+            "win_chance",
+            "bets",
+            "func_bal"
+            )
+    parameters = ((1000, ), (10, 15, 20, 25),
+                  (50, 55, 60), (True, ),
+                  ("new_balance", "new_balance_double"))
+
+    merged_games = create_all_games(game_atribut, parameters, 3)
+    pprint(merged_games)
+
+
+if __name__ == '__main__':
+    main()

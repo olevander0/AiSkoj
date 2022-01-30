@@ -1,15 +1,26 @@
-import simulate_games as sg
-import collections
+from create_games import create_all_games
+from simulate_games import perform_simulations
+from pprint import pprint
 
-game_atribut = (
-        "balance",
-        "bet_andel",
-        "win_chance",
-        "bets",
-        "func_bal"
-        )
 
-game = sg.create_namedtuple(game_atribut)
+def main():
+    game_atribut = (
+            "balance",
+            "bet_andel",
+            "win_chance",
+            "bets",
+            "func_bal"
+            )
+    parameters = ((1000, ), (10, 25),
+                  (70, 80, 90), (10, ),
+                  ("new_balance", "new_balance_double"))
+
+    games = create_all_games(game_atribut, parameters, 2)
+    pprint(games)
+    print()
+    tested_games = perform_simulations(games)
+    pprint(tested_games)
+
 
 """
 def main():
@@ -34,8 +45,6 @@ def main():
 
     new_games_rounded = create_new_balances(new_games, round_bal(new_games))
 """
-def main():
-    sg.main()
 
 
 if __name__ == '__main__':
