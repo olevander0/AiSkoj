@@ -3,7 +3,12 @@ from simulate_games import perform_simulations
 from pprint import pprint
 
 
+def grouper(n, iterable):
+    return (iterable[i:i + n] for i in range(0, len(iterable), n))
+
+
 def main():
+    copies = 2
     game_atribut = (
             "balance",
             "bet_andel",
@@ -15,11 +20,13 @@ def main():
                   (70, 80, 90), (10, ),
                   ("new_balance", "new_balance_double"))
 
-    games = create_all_games(game_atribut, parameters, 2)
+    games = create_all_games(game_atribut, parameters, copies)
     pprint(games)
     print()
     tested_games = perform_simulations(games)
+    grouped = grouper(copies, tested_games)
     pprint(tested_games)
+    pprint(tuple(grouped))
 
 
 """
