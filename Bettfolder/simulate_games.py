@@ -45,8 +45,10 @@ def main():
                   (50, 55, 60), (100, ), ("new_balance", "new_balance_double"))
 
     games = create_all_games(game_atribut, parameters, 2)
-    up_games = perform_simulations(games)
     from pprint import pprint
+    pprint(games)
+    up_games = perform_simulations(games)
+
     pprint(up_games)
 
 
