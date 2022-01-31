@@ -1,5 +1,3 @@
-
-
 from PyProbs import Probability as pr
 import matplotlib.pyplot as plt
 
