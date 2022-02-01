@@ -73,7 +73,7 @@ def stats_for_games_procent(grouped_games, stats):
 
 
 def main():
-    copies = 1000
+    copies = 500
     game_atribut = (
             "balance",
             "bet_andel",
