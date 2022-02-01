@@ -73,7 +73,7 @@ def stats_for_games_procent(grouped_games, stats):
 
 
 def main():
-    copies = 2000
+    copies = 1000
     game_atribut = (
             "balance",
             "bet_andel",
@@ -81,7 +81,7 @@ def main():
             "bets",
             "func_bal"
             )
-    bet_andelar = tuple(i for i in range(1, 30))
+    bet_andelar = tuple(i for i in range(10, 30))
     win_chances = (60, )
     parameters = ((1000, ), (bet_andelar),
                   (win_chances), (400, ),
