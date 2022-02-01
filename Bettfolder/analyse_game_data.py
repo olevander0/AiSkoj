@@ -102,7 +102,8 @@ def main():
     pprint(stats)
     print()
     pstats = stats_for_games_procent(grouped_games, stats)
-    pprint(pstats)
+
+
     pprint(match_game_with_stats(grouped_games, pstats))
     """
     for (game_start, game_stats, pstats) in zip(grouped_games, stats, pstats):
