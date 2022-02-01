@@ -1,7 +1,7 @@
 from create_games import create_all_games
 from simulate_games import perform_simulations
 from typing import NamedTuple
-# from pprint import pprint
+from pprint import pprint
 import statistics
 
 
@@ -49,12 +49,31 @@ def stats_for_games(all_balances):
         game_stats = GameStats(get_average(balances), get_median(balances),
                                get_max(balances), get_min(balances))
         return game_stats
-
     return tuple(get_stats_for_clones(balances) for balances in all_balances)
 
 
+def match_game_with_stats(grouped_games, stats):
+    return tuple((clones[0], s) for clones, s in zip(grouped_games, stats))
+
+
+def stats_for_games_procent(grouped_games, stats):
+    def get_percentage_diff(start_bal, new_bal):
+        if new_bal == 0:
+            return -100
+        percentage = ((new_bal/start_bal) * 100) - 100
+        return round(percentage)
+
+    def set_percentage_diff(start_bal, game_stats):
+        percentages = (get_percentage_diff(start_bal, new_bal)
+                       for new_bal in game_stats)
+        return GameStats._make(percentages)
+    g_percentages = (set_percentage_diff(game_start[0].balance, game_stats)
+                     for game_start, game_stats in zip(grouped_games, stats))
+    return tuple(g_percentages)
+
+
 def main():
-    copies = 1000
+    copies = 2000
     game_atribut = (
             "balance",
             "bet_andel",
@@ -62,9 +81,10 @@ def main():
             "bets",
             "func_bal"
             )
-
-    parameters = ((1000, ), (15, 17, 19, 21, 23, 25),
-                  (51, 52, 53, 54, 55), (100, ),
+    bet_andelar = tuple(i for i in range(1, 30))
+    win_chances = (60, )
+    parameters = ((1000, ), (bet_andelar),
+                  (win_chances), (400, ),
                   ("new_balance", ))
 
     games = create_all_games(game_atribut, parameters, copies)
@@ -79,10 +99,16 @@ def main():
     # pprint(grouped)
     all_balances = get_bal_all_games(grouped)
     stats = stats_for_games(all_balances)
-    for (game_start, game_stats) in zip(grouped_games, stats):
+
+    pstats = stats_for_games_procent(grouped_games, stats)
+    pprint(match_game_with_stats(grouped_games, pstats))
+    """
+    for (game_start, game_stats, pstats) in zip(grouped_games, stats, pstats):
         print(game_start[0])
         print(game_stats)
+        print(pstats)
         print()
+    """
 
 
 if __name__ == '__main__':
