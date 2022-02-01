@@ -7,8 +7,8 @@ def create_namedtuple(game_args):
     return namedtuple("game", game_args)
 
 
-def set_game(game, parameter):
-    return game._make(parameter)
+def set_game(game, parameters):
+    return game._make(parameters)
 
 
 def game_variants(game, parameters):

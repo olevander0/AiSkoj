@@ -1,4 +1,5 @@
 from PyProbs import Probability as pr
+import random
 
 
 def new_balance(game):
@@ -32,7 +33,15 @@ def new_balance_double(game):
     return new_balance
 
 
+def test(game):
+    bal = 0
+    for i in range(game.bets):
+        bal += random.randint(1, 9)*10**(i)
+    return(bal)
+
+
 def get_functions():
     functions = {"new_balance": new_balance,
-                 "new_balance_double": new_balance_double}
+                 "new_balance_double": new_balance_double,
+                 "test": test}
     return functions
