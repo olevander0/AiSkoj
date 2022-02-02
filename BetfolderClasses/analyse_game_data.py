@@ -1,4 +1,4 @@
-from create_games import create_all_games
+from create_games import CreateGames
 from simulate_games import perform_simulations
 from typing import NamedTuple
 from pprint import pprint
@@ -16,14 +16,11 @@ def set_game_stats(game, parameter):
     return game._make(parameter)
 
 
-def grouper(n, iterable):
-    return tuple(iterable[i:i + n] for i in range(0, len(iterable), n))
-
-
-def get_bal_all_games(games):
+def get_bal_all_games(games, copies):
     def get_bal_gameclones(clones):
         return tuple(clone.balance for clone in clones)
-    return tuple(get_bal_gameclones(clones) for clones in games)
+    return tuple(get_bal_gameclones(games[i:i + copies])
+                 for i in range(0, len(games), copies))
 
 
 def set_average_for_gamevariant(games, averages):
@@ -52,11 +49,11 @@ def stats_for_games(all_balances):
     return tuple(get_stats_for_clones(balances) for balances in all_balances)
 
 
-def match_game_with_stats(grouped_games, stats):
-    return tuple((clones[0], s) for clones, s in zip(grouped_games, stats))
+def match_game_with_stats(variants, stats):
+    return tuple((v, s) for v, s in zip(variants, stats))
 
 
-def stats_for_games_procent(grouped_games, stats):
+def stats_for_games_procent(variants, stats):
     def get_percentage_diff(start_bal, new_bal):
         if new_bal == 0:
             return -100
@@ -67,8 +64,8 @@ def stats_for_games_procent(grouped_games, stats):
         percentages = (get_percentage_diff(start_bal, new_bal)
                        for new_bal in game_stats)
         return GameStats._make(percentages)
-    g_percentages = (set_percentage_diff(game_start[0].balance, game_stats)
-                     for game_start, game_stats in zip(grouped_games, stats))
+    g_percentages = (set_percentage_diff(variant.balance, game_stats)
+                     for variant, game_stats in zip(variants, stats))
     return tuple(g_percentages)
 
 
@@ -87,14 +84,12 @@ def gen_data():
                   (win_chances), (150, ),
                   ("new_balance", ))
 
-    games = create_all_games(game_atribut, parameters, copies)
-    grouped_games = grouper(copies, games)
-    tested_games = perform_simulations(games)
-    grouped = grouper(copies, tested_games)
-    all_balances = get_bal_all_games(grouped)
+    g = CreateGames(game_atribut, parameters, copies)
+    tested_games = perform_simulations(g.all_games_merged)
+    all_balances = get_bal_all_games(tested_games, copies)
     stats = stats_for_games(all_balances)
-    pstats = stats_for_games_procent(grouped_games, stats)
-    return (match_game_with_stats(grouped_games, pstats))
+    pstats = stats_for_games_procent(g.variants, stats)
+    return (match_game_with_stats(g.variants, pstats))
 
 
 def main():
@@ -112,23 +107,18 @@ def main():
                   (win_chances), (400, ),
                   ("new_balance", ))
 
-    games = create_all_games(game_atribut, parameters, copies)
-    grouped_games = grouper(copies, games)
-    # pprint(games)
-    # print()
-    tested_games = perform_simulations(games)
-    grouped = grouper(copies, tested_games)
-
+    g = CreateGames(game_atribut, parameters, copies)
+    tested_games = perform_simulations(g.all_games_merged)
     # pprint(tested_games)
     # print("hej")
     # pprint(grouped)
-    all_balances = get_bal_all_games(grouped)
+    all_balances = get_bal_all_games(tested_games, copies)
     stats = stats_for_games(all_balances)
     pprint(stats)
     print()
-    pstats = stats_for_games_procent(grouped_games, stats)
+    pstats = stats_for_games_procent(g.variants, stats)
 
-    pprint(match_game_with_stats(grouped_games, pstats))
+    pprint(match_game_with_stats(g.variants, pstats))
     """
     for (game_start, game_stats, pstats) in zip(grouped_games, stats, pstats):
         print(game_start[0])
