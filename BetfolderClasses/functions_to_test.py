@@ -33,6 +33,17 @@ def new_balance_double(game):
     return new_balance
 
 
+def winrate
+
+
+
+def win_seq(game):
+    def slump(win_chance):
+        return pr.Prob(win_chance/100)
+    return (slump(game.win_chance) for ):
+
+
+
 def test(game):
     bal = 0
     for i in range(game.bets):

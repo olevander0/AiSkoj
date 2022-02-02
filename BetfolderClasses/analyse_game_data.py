@@ -80,8 +80,9 @@ def gen_data():
             )
     bet_andelar = tuple(i for i in range(10, 30))
     win_chances = (51, 52, 53, 55, 54)
+    bets = 150
     parameters = ((1000, ), (bet_andelar),
-                  (win_chances), (150, ),
+                  (win_chances), (bets, ),
                   ("new_balance", ))
 
     g = CreateGames(game_atribut, parameters, copies)
@@ -119,6 +120,9 @@ def main():
     pstats = stats_for_games_procent(g.variants, stats)
 
     pprint(match_game_with_stats(g.variants, pstats))
+
+
+
     """
     for (game_start, game_stats, pstats) in zip(grouped_games, stats, pstats):
         print(game_start[0])

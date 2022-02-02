@@ -50,6 +50,8 @@ def main():
                   ("new_balance", "new_balance_double"))
 
     g = CreateGames(game_atribut, parameters, 3)
+
+    pprint(g.namedtuple)
     pprint(g.variants)
     print()
     pprint(g.all_games)
