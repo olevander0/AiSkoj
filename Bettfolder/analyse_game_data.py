@@ -72,6 +72,31 @@ def stats_for_games_procent(grouped_games, stats):
     return tuple(g_percentages)
 
 
+def gen_data():
+    copies = 500
+    game_atribut = (
+            "balance",
+            "bet_andel",
+            "win_chance",
+            "bets",
+            "func_bal"
+            )
+    bet_andelar = tuple(i for i in range(10, 30))
+    win_chances = (51, 52, 53, 55, 54)
+    parameters = ((1000, ), (bet_andelar),
+                  (win_chances), (150, ),
+                  ("new_balance", ))
+
+    games = create_all_games(game_atribut, parameters, copies)
+    grouped_games = grouper(copies, games)
+    tested_games = perform_simulations(games)
+    grouped = grouper(copies, tested_games)
+    all_balances = get_bal_all_games(grouped)
+    stats = stats_for_games(all_balances)
+    pstats = stats_for_games_procent(grouped_games, stats)
+    return (match_game_with_stats(grouped_games, pstats))
+
+
 def main():
     copies = 500
     game_atribut = (
@@ -102,7 +127,6 @@ def main():
     pprint(stats)
     print()
     pstats = stats_for_games_procent(grouped_games, stats)
-
 
     pprint(match_game_with_stats(grouped_games, pstats))
     """
