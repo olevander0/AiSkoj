@@ -25,12 +25,7 @@ def copy_game_variants(variants, antal):
 
 
 def merge_games(all_games):
-    merged_games = all_games[0]
-    if len(all_games) == 1:
-        return merged_games
-    for games in all_games[1:]:
-        merged_games += games
-    return merged_games
+    return tuple(itertools.chain(*all_games))
 
 
 def create_all_games(game_atribut, parameters, antal):
