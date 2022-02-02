@@ -1,7 +1,27 @@
 import pyplot as plt
 
+def get_data_dict(all_stats):
+    data = {}
+    for Game, GameStats in all_stats:
+        if Game.win_chance not in data.keys():
+            data[Game.win_chance] = [[Game.bet_andel], [GameStats.average]]
+        else:
+            data[Game.win_chance][0].append(Game.bet_andel)
+            data[Game.win_chance][1].append(GameStats.average)
+    return data
+
+
+def
+    for i, key in enumerate(plt_data):
+
+
+
+
+
 def hextriplet(colortuple):
     return '#' + ''.join(f'{i:02X}' for i in colortuple)
+
+
 
 def final_simulation(win_chance, balance, bet_andel, games, simuleringar):
     for i, w in enumerate(range(*win_chance, 5)):
@@ -15,21 +35,3 @@ def final_simulation(win_chance, balance, bet_andel, games, simuleringar):
         plt.yscale("log")
         plt.plot(x_axel_andel, A_V, HEX_color, linewidth=2)
         plt.plot(x , y, Färg, BREDD)
-
-
-
-def get_x_axel(all_stats):
-    data = {}
-
-
-    for (game, GameStats) in all_stats:
-
-        
-
-
-(50, 55, 60)
-
-dic = {}
-
-for par in parameter():
-    Dic(par:
