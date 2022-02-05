@@ -1,7 +1,6 @@
 from pathos.multiprocessing import ProcessingPool
 # from functions_to_test import get_functions
 from A_create_games import GameVariants
-import itertools
 
 
 def get_change_factor(game_variant):
@@ -16,7 +15,7 @@ def get_change_factor(game_variant):
     return change_factor
 
 
-def perform_simulations(game_variants):  # ger en tuple med samtliga updaterade balances
+def perform_simulations(game_variants):
     def update_variant(game_variant):
         change_factor = get_change_factor(game_variant)
         change = {0: change_factor}
@@ -26,11 +25,35 @@ def perform_simulations(game_variants):  # ger en tuple med samtliga updaterade 
     return tuple(result)
 
 
-def sort_by_win_chance(simulated_games):
-    def sort_winchance(one_simulated_game):
-        return one_simulated_game.win_chance
-    filtered = itertools.groupby(simulated_games, sort_winchance)
-    return filtered
+def sort_by_win_chance(all_simulated_games):
+    filtered = {}
+    highest = {}
+    for game in all_simulated_games:
+        if game.win_chance in filtered:
+            filtered[game.win_chance].append(game)
+            if game.multiplier > highest[game.win_chance][0]:
+                highest[game.win_chance] = (game.multiplier, game.bet_andel)
+        else:
+            filtered[game.win_chance] = [game]
+            highest[game.win_chance] = (game.multiplier, game.bet_andel)
+
+    return filtered, highest
+
+
+def get_stats():
+    game_atribut = (
+            "multiplier",
+            "bet_andel",
+            "win_chance",
+            "bets"
+            )
+    bet_andelar = [i for i in range(0, 101)]
+    win_chances = [i for i in range(50, 101)]
+    parameters = ((1, ), bet_andelar,
+                  win_chances, (100, ))
+    game_variants = GameVariants(game_atribut, parameters)
+    simulated_games = perform_simulations(game_variants)
+    return sort_by_win_chance(simulated_games)
 
 
 def main():
@@ -48,13 +71,11 @@ def main():
     game_variants = GameVariants(game_atribut, parameters)
     from pprint import pprint
     simulated_games = perform_simulations(game_variants)
-    #pprint(simulated_games)
+    # pprint(simulated_games)
     print()
-    grouped = sort_by_win_chance(simulated_games)
-    print(grouped)
-    for key, group in grouped:
-        keygroup = {key: list(group)}
-        print(keygroup)
+    grouped, highest = sort_by_win_chance(simulated_games)
+    pprint(grouped)
+    print(highest)
 
 
 if __name__ == '__main__':

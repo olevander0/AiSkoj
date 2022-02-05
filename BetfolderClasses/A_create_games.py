@@ -15,21 +15,10 @@ class GameVariants:
         permuted_parameters = tuple(itertools.product(*parameters))
         return tuple((self.set_game(para)
                      for para in permuted_parameters))
-    """
-    def copy_game(self, game, antal):
-        return tuple((game for _ in range(antal)))
-
-    def copy_game_variants(self, variants, antal):
-        return tuple(self.copy_game(variant, antal) for variant in variants)
-
-    def merge_games(self, all_games):
-        return tuple(itertools.chain(*all_games))
-    """
 
     def __init__(self, game_atribut, parameters):
         self.namedtuple = self.create_namedtuple(game_atribut)
         self.variants = self.create_variants(parameters)
-        # self.analyzed_variants = tuple()
 
     def replace_variant(self, game_variant, substitute_by_index):
         paras = [substitute_by_index[i] if i in substitute_by_index else value
