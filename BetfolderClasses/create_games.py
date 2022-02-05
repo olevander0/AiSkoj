@@ -3,18 +3,19 @@ import itertools
 from pprint import pprint
 
 
-class CreateGames:
+class GameVariants:
+
     def create_namedtuple(self, game_args):
         return namedtuple("game", game_args)
 
-    def set_game(self, game, parameters):
-        return game._make(parameters)
+    def set_game(self, parameters):
+        return self.namedtuple._make(parameters)
 
-    def game_variants(self, game, parameters):
+    def game_variants(self, parameters):
         permuted_parameters = tuple(itertools.product(*parameters))
-        return tuple((self.set_game(game, para)
+        return tuple((self.set_game(para)
                      for para in permuted_parameters))
-
+    """
     def copy_game(self, game, antal):
         return tuple((game for _ in range(antal)))
 
@@ -23,40 +24,34 @@ class CreateGames:
 
     def merge_games(self, all_games):
         return tuple(itertools.chain(*all_games))
+    """
 
-    def __init__(self, game_atribut, parameters, antal):
+    def __init__(self, game_atribut, parameters):
         self.namedtuple = self.create_namedtuple(game_atribut)
-        self.variants = self.game_variants(self.namedtuple, parameters)
-        self.all_games = self.copy_game_variants(self.variants, antal)
-        self.all_games_merged = self.merge_games(self.all_games)
-        self.key_to_tree = 0
-        self.tree = {}
+        self.variants = self.game_variants(parameters)
+        # self.analyzed_variants = tuple()
 
-    def add_tree(self, value):
-        self.tree[self.key_to_tree] = value
-        self.key_to_tree += 1
+    def replace_variant(self, game_variant, substitute_by_index):
+        paras = [substitute_by_index[i] if i in substitute_by_index else value
+                 for i, value in enumerate(game_variant)]
+        return self.namedtuple._make(paras)
 
 
 def main():
     game_atribut = (
-            "balance",
+            "multiplier",
             "bet_andel",
             "win_chance",
-            "bets",
-            "func_bal"
+            "bets"
             )
-    parameters = ((1000, ), (10, 15, 20, 25),
-                  (50, 55, 60), (True, ),
-                  ("new_balance", "new_balance_double"))
+    parameters = ((1, ), (10, 15, 20, 25),
+                  (50, 55, 60), (100, ))
 
-    g = CreateGames(game_atribut, parameters, 3)
+    g = GameVariants(game_atribut, parameters)
 
-    pprint(g.namedtuple)
     pprint(g.variants)
-    print()
-    pprint(g.all_games)
-    print()
-    pprint(g.all_games_merged)
+    newvar = g.replace_variant(g.variants[0], {0: "dfs"})
+    print(newvar)
 
 
 if __name__ == '__main__':

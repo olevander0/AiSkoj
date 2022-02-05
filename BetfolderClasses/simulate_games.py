@@ -1,6 +1,6 @@
 from pathos.multiprocessing import ProcessingPool
 from functions_to_test import get_functions
-from create_games import CreateGames
+from create_games import GameVariants
 
 
 def create_new_balances(games, balances):
@@ -15,41 +15,26 @@ def func(game_instance):
     return get_functions()[game_instance.func_bal](game_instance)
 
 
-def new_balances(games):  # ger en tuple med samtliga updaterade balances
-    balances = ProcessingPool().map(func, games)
-    return tuple(balances)
-
-
-def new_balances2(games):  # samma som function ovan utan multiprocessing
-    balances = map(func, games)
-    return tuple(balances)
-
-
-def perform_simulations(games):
-    return create_new_balances(games, new_balances(games))
-
-
-def perform_simulations2(games):
-    return create_new_balances(games, new_balances2(games))
+def perform_simulations(games):  # ger en tuple med samtliga updaterade balances
+    simulted_games = ProcessingPool().map(func, games)
+    return tuple(simulted_games)
 
 
 def main():
     game_atribut = (
-            "balance",
+            "multiplier",
             "bet_andel",
             "win_chance",
-            "bets",
-            "func_bal"
+            "bets"
             )
-    parameters = ((1000, ), (10, 15, 20, 25, 30, 35, 40),
-                  (50, 55, 60), (100, ), ("new_balance", "new_balance_double"))
+    parameters = ((1, ), (10, 15, 20, 25, 30, 35, 40),
+                  (50, 55, 60), (100, ))
 
-    games = CreateGames(game_atribut, parameters, 2)
+    games = GameVariants(game_atribut, parameters)
     from pprint import pprint
     pprint(games.variants)
-    up_games = perform_simulations(games.all_games_merged)
-
-    pprint(up_games)
+    simulated_games = perform_simulations(games.variants)
+    pprint(simulated_games)
 
 
 if __name__ == '__main__':

@@ -33,15 +33,10 @@ def new_balance_double(game):
     return new_balance
 
 
-def winrate
-
-
-
-def win_seq(game):
-    def slump(win_chance):
-        return pr.Prob(win_chance/100)
-    return (slump(game.win_chance) for ):
-
+def win_seq(antal, wc):
+    def slump(wc):
+        return pr.Prob(wc/100)
+    return tuple(slump(wc) for _ in range(antal))
 
 
 def test(game):
@@ -51,8 +46,30 @@ def test(game):
     return(bal)
 
 
+def get_change_factor(game):
+    win = 1 + game.bet_andel/100
+    loss = 1 - game.bet_andel/100
+    # print(w)
+    for i in range(100):
+        if i < game.win_chance:
+            x *= win
+        else:
+            x *= loss
+    return x
+
+
 def get_functions():
     functions = {"new_balance": new_balance,
                  "new_balance_double": new_balance_double,
-                 "test": test}
+                 "test": test,
+                 "get_change_factor": get_change_factor}
     return functions
+
+
+def main():
+    seq = win_seq(100, 50)
+    print(seq)
+
+
+if __name__ == '__main__':
+    main()
