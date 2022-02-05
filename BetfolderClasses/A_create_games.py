@@ -11,7 +11,7 @@ class GameVariants:
     def set_game(self, parameters):
         return self.namedtuple._make(parameters)
 
-    def game_variants(self, parameters):
+    def create_variants(self, parameters):
         permuted_parameters = tuple(itertools.product(*parameters))
         return tuple((self.set_game(para)
                      for para in permuted_parameters))
@@ -28,7 +28,7 @@ class GameVariants:
 
     def __init__(self, game_atribut, parameters):
         self.namedtuple = self.create_namedtuple(game_atribut)
-        self.variants = self.game_variants(parameters)
+        self.variants = self.create_variants(parameters)
         # self.analyzed_variants = tuple()
 
     def replace_variant(self, game_variant, substitute_by_index):

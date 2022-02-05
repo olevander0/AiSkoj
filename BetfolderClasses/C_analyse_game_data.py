@@ -1,5 +1,5 @@
-from create_games import CreateGames
-from simulate_games import perform_simulations
+from A_create_games import CreateGames
+from B_simulate_games import perform_simulations
 from typing import NamedTuple
 from pprint import pprint
 import statistics
