@@ -7,7 +7,7 @@ def random_win_chance(data2):
     random_wc_list = []
     # lowest_wc, higest_wc = list(data2.keys())[0], list(data2.keys())[-1]
     # game = data2[lowest_wc]
-    lowest_wc, higest_wc = 50, 60
+    lowest_wc, higest_wc = 50, 100
     game = data2[50]
     for i in range(game.bets):
         random_wc_list.append(r.randint(lowest_wc, higest_wc))
@@ -35,10 +35,10 @@ def default(data2, random_wc, bool_list):
 
 def fixed(fixed_andel, bool_list):
     change_factor = 1
+    bet_andel = fixed_andel / 100
+    win = 1 + bet_andel
+    loss = 1 - bet_andel
     for bool in bool_list:
-        bet_andel = fixed_andel / 100
-        win = 1 + bet_andel
-        loss = 1 - bet_andel
         if bool:
             change_factor *= win
         else:
