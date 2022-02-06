@@ -51,7 +51,7 @@ def get_stats():
     bet_andelar = [i for i in range(0, 101)]
     win_chances = [i for i in range(50, 101)]
     parameters = ((1, ), bet_andelar,
-                  win_chances, (20, ))
+                  win_chances, (100, ))
     game_variants = GameVariants(game_atribut, parameters)
     simulated_games = perform_simulations(game_variants)
     return sort_by_win_chance(simulated_games)

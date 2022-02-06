@@ -5,8 +5,10 @@ from PyProbs import Probability as pr
 
 def random_win_chance(data2):
     random_wc_list = []
-    lowest_wc, higest_wc = list(data2.keys())[0], list(data2.keys())[-1]
-    game = data2[lowest_wc]
+    # lowest_wc, higest_wc = list(data2.keys())[0], list(data2.keys())[-1]
+    # game = data2[lowest_wc]
+    lowest_wc, higest_wc = 50, 60
+    game = data2[50]
     for i in range(game.bets):
         random_wc_list.append(r.randint(lowest_wc, higest_wc))
     return random_wc_list
@@ -54,8 +56,10 @@ def highest_fixed(bool_list):
 
 
 def main():
-    data, data2 = get_stats()
     # from pprint import pprint
+    data, data2 = get_stats()
+    # pprint(data2)
+
     random_wc = random_win_chance(data2)
     print(random_wc)
 
