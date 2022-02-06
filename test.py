@@ -7,7 +7,7 @@ def hextriplet(colortuple):
 
 def optic():
     OP = {}
-    for wc in range(50, 100):
+    for wc in range(50, 101):
         OP[wc] = (1, 0)
     return OP
 
@@ -15,7 +15,7 @@ def optic():
 def andringsfaktor(bet_andel, OP):
     # winning_wc = []
 
-    for wc in range(50, 100):
+    for wc in range(50, 101):
 
         x = 1
         win = 1 + bet_andel/100
@@ -37,13 +37,15 @@ def andringsfaktor(bet_andel, OP):
 
 def get_OP():
     OP = optic()
-    for bet in range(1, 100):
+    for bet in range(1, 101):
         andringsfaktor(bet, OP)
     return OP
 
 
 pprint(get_OP())
 OP = get_OP()
+
+
 
 x_axel = []
 y_axel = []

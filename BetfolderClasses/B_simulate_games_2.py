@@ -32,11 +32,11 @@ def sort_by_win_chance(all_simulated_games):
     for game in all_simulated_games:
         if game.win_chance in filtered:
             filtered[game.win_chance].append(game)
-            if game.multiplier > highest[game.win_chance].multiplier:
-                highest[game.win_chance] = game
+            if game.multiplier > highest[game.win_chance][0]:
+                highest[game.win_chance] = (game.multiplier, game.bet_andel)
         else:
             filtered[game.win_chance] = [game]
-            highest[game.win_chance] = game
+            highest[game.win_chance] = (game.multiplier, game.bet_andel)
 
     return filtered, highest
 
@@ -74,8 +74,8 @@ def main():
     simulated_games = perform_simulations(game_variants)
     # pprint(simulated_games)
     print()
-    filtered, highest = sort_by_win_chance(simulated_games)
-    pprint(filtered)
+    grouped, highest = sort_by_win_chance(simulated_games)
+    pprint(grouped)
     print(highest)
 
 

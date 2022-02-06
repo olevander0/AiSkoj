@@ -64,5 +64,5 @@ games = 10
 simuleringar = 50
 s = sim_average(51, 1000, 5, 100, 100)
 print(s)
-# final_simulation(win_chance, balance, bet_andel, games, simuleringar)
-# plt.show()
+final_simulation(win_chance, balance, bet_andel, games, simuleringar)
+plt.show()
