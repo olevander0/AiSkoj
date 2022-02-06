@@ -21,8 +21,9 @@ def get_boolean_list(random_wc_list):
 def default(data2, random_wc, bool_list):
     change_factor = 1
     for bool, wc in zip(bool_list, random_wc):
-        win = 1 + data2[wc][1]/100
-        loss = 1 - data2[wc][1]/100
+        bet_andel = data2[wc].bet_andel / 100
+        win = 1 + bet_andel
+        loss = 1 - bet_andel
         if bool:
             change_factor *= win
         else:
@@ -30,23 +31,31 @@ def default(data2, random_wc, bool_list):
     return change_factor
 
 
-"""
-def fixed_bet_andel(data2, random_wc):
-    for wc in random_wc:
-        win = 1 + bet_andel/100
-        loss = 1 - bet_andel/100
-        def slump(wc):
-            return pr.Prob(wc/100)
-        if slump(wc):
+def fixed(fixed_andel, bool_list):
+    change_factor = 1
+    for bool in bool_list:
+        bet_andel = fixed_andel / 100
+        win = 1 + bet_andel
+        loss = 1 - bet_andel
+        if bool:
             change_factor *= win
         else:
             change_factor *= loss
     return change_factor
-"""
+
+
+def highest_fixed(bool_list):
+    highest = (1, 0)
+    for bet_andel in range(0, 101):
+        change_factor = fixed(bet_andel, bool_list)
+        if change_factor > highest[0]:
+            highest = (change_factor, bet_andel)
+    return highest
 
 
 def main():
     data, data2 = get_stats()
+    # from pprint import pprint
     random_wc = random_win_chance(data2)
     print(random_wc)
 
@@ -55,6 +64,9 @@ def main():
 
     result = default(data2, random_wc, bool_list)
     print(result)
+
+    result2 = highest_fixed(bool_list)
+    print(result2)
 
 
 if __name__ == "__main__":
