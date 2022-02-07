@@ -8,16 +8,10 @@ def random_win_chance(data2, bet_depth):
     random_wc_list = []
     # lowest_wc, higest_wc = list(data2.keys())[0], list(data2.keys())[-1]
     # game = data2[lowest_wc]
-<<<<<<< HEAD
-    lowest_wc, higest_wc = 50, 100
-    game = data2[50]
-    for i in range(game.bets):
-=======
     lowest_wc, higest_wc = 50, 55
     # game = data2[50]
     #for i in range(game.bets):
     for i in range(bet_depth):
->>>>>>> d075f6cb766e5c5febdecfa1b509eee4300aed98
         random_wc_list.append(r.randint(lowest_wc, higest_wc))
     return random_wc_list
 
