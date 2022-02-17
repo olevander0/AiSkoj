@@ -35,7 +35,7 @@ def plot_data2(data):
     x_axel, y_axel = [], []
     for w_c, maxvals in data.items():
         x_axel.append(w_c)
-        y_axel.append(maxvals.bet_andel)
+        y_axel.append(maxvals[1])
     color = (10, 0, 0)
     hex = hextriplet(color)
     # plt.yscale("log")
