@@ -20,6 +20,11 @@ def get_boolean_list(random_wc_list):
     return [slump(wc) for wc in random_wc_list]
 
 
+def get_multiple_boolean_list(random_wc_list, antal):
+    return [get_boolean_list(random_wc_list)for i in range(antal)]
+
+
+
 def default(data2, random_wc, bool_list):
     change_factor = 1
     for bool, wc in zip(bool_list, random_wc):
